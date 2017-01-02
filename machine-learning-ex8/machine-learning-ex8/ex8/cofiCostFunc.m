@@ -41,14 +41,15 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+common = (X * Theta' - Y).*R;
+J = sum(sum(common.^2))*0.5;
+J = J + lambda * 0.5 * sum(Theta(:).^2) + lambda * 0.5 * sum(X(:).^2);
 
+X_grad  = common *  Theta; %num_movies x num_users  *  num_users  x num_features
+X_grad = X_grad + lambda * X; 
 
-
-
-
-
-
-
+Theta_grad = common' * X ;% num_users * num_movies  *   num_movies * num_features
+Theta_grad = Theta_grad + lambda * Theta;
 
 
 
